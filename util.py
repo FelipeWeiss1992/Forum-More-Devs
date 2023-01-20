@@ -63,21 +63,21 @@ print(date.today())
 
 
 ### Finds a User and returns it with its respective Events
-with Session(engine) as session:
-    statement = select(User).where(User.user_name == "asd")
-    #statement = select(User)
-    user = session.exec(statement).first()
-    print("USER:")
-    print(user)
-    print("----POSTS----")
-    if user.posts:
-        for posts in user.posts:
-            print(posts)
+# with Session(engine) as session:
+#     statement = select(User).where(User.user_name == "asd")
+#     #statement = select(User)
+#     user = session.exec(statement).first()
+#     print("USER:")
+#     print(user)
+#     print("----POSTS----")
+#     if user.posts:
+#         for posts in user.posts:
+#             print(posts)
             
-        print("----sub-posts----")
-        if user.sub_posts:
-            for sub_posts in user.sub_posts:
-                print(sub_posts)
+#         print("----sub-posts----")
+#         if user.sub_posts:
+#             for sub_posts in user.sub_posts:
+#                 print(sub_posts)
 
 
 # with Session(engine) as session:

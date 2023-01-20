@@ -14,12 +14,12 @@ def listUsers(id=None, user_name=None):
         ### The option .options(selectinload(User.events)) has to me used so that the query returns the data instead o "lazy loading" it
         ### if removed the option, you will have to use de data only inside of a session otherwise an error will be trown as lazy load problem.
         if id is not None or user_name is not None:
-            statement = select(User).where(User.id == id).options(selectinload(User.events))
+            statement = select(User).where(User.id == id).options(selectinload(User.posts))
             user = session.exec(statement)
             return user.first()
         
         else:
-            statement = select(User).options(selectinload(User.events))
+            statement = select(User).options(selectinload(User.posts))
             user = session.exec(statement)
             ### The .all() is used to return the result as an Object, otherwise the return will be shown as a object in the memory. The .first() also can be used to return a single object.
             return user.all()
