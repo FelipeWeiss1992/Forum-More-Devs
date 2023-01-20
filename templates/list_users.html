@@ -1,0 +1,88 @@
+{% extends "template.html" %}
+
+<p>Lista pessoas</p>
+
+{% block content %}
+<body>
+    <div class="container listapessoas user__list">
+        <ul class="heading user-grid-template">
+            <li>ID</li>
+            <li>Login</li>
+            <li>Name</li>
+            <li class="flex-justify-center">Admin</li>
+            <li class="flex-justify-center">Actions</li>
+        </ul>
+        {% for user in users_list %}
+        <ul class="user__details user-grid-template">
+            <li>{{ user.id }}</li>
+            <li><a href="/users/{{ user.id }}">{{ user.user_name }}</a></li>
+            <li>{{ user.name }}</li>
+            <li class="flex-justify-center">{{ user.admin }}</li>
+            <li class="actions flex-justify-center"><a href="#" title="Suspend"><i class="fa-solid fa-ban"></i></a><a href="/users/edit/{{ user.id }}" title="Edit"><i class="fa-solid fa-pencil"></i></a><a href="#" user-delete data-id="{{ user.id }}" title="Delete"><i class="fa-solid fa-trash"></i></a></li>
+        </ul>
+
+            {% endfor %}
+
+        <a href="/users/new_user" class="btn btn-success">CADASTRO</a>
+
+    </div>
+
+<script>
+
+    function deleteUser(id) {
+        var ajxReq = $.ajax( {
+            url : '/users/'+id,
+            type : 'delete',
+            data : '',
+            success : function ( data ) {
+                $( "p" ).append( "User deleted" );
+            },
+            error : function ( jqXhr, textStatus, errorMessage ) {
+                $( "p" ).append( "Request has Fail.");
+            }
+        });
+    }
+
+
+    const usersDelete = document.querySelectorAll("[user-delete]");
+    usersDelete.forEach( button => {
+        button.addEventListener('click', () => {
+            console.log(button.dataset.id)
+            deleteUser(button.dataset.id)
+            
+            setTimeout(function(){
+                location.reload()
+            }, 1000); 
+            
+        })
+    })
+    
+
+
+
+
+
+$(document).ready( function () {
+    $('.editar').click( function(){
+        data = "name=" + document.getElementById("name").value + "&admin=" + document.getElementById("admin").value
+        console.log(data)
+        var ajxReq = $.ajax( {
+            url : '/users/',
+            type : 'delete',
+            data : data,
+            success : function ( data ) {
+                $( "p" ).append( "Update request has Succeded." );
+            },
+            error : function ( jqXhr, textStatus, errorMessage ) {
+                $( "p" ).append( "Update request has Fail.");
+            }
+        });
+    });
+});
+
+</script>
+
+
+
+</body>
+{% endblock content %}

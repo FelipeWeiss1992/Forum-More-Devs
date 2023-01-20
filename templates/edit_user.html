@@ -1,0 +1,86 @@
+{% extends "template.html" %}
+
+{% block title %}
+<div class="page-header">
+  <h1>{{ title }}</h1>
+</div>
+{% endblock title %}
+
+
+{% block content %}
+
+<body>
+  <div class="container">
+
+    <h2>User: {{ user.user_name }}</h2>
+
+
+    <form action="/users/{{user.id}}" method="post" id="userEditForm">
+      <fieldset>
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" class="form-control" value="{{ user.name }}">
+        </div>
+
+        <input type="hidden" id="id" value="{{ user.id }}" name="id">
+        <input type="hidden" id="admin_hidden" value="False" name="admin">
+        <input type="checkbox" id="admin" name="admin" value="{{ user.admin }}">
+        <label for="admin"> Admin user (can create other users)</label><br>
+
+        <button type="submit" class="btn btn-success edit">Save</button>
+
+
+      </fieldset>
+
+    </form>
+    <p class="message"></p>
+
+  </div>
+</body>
+<!-- JS to enable/disble the checkbox of the hidden input otherwise the check will not send any data to the POST -->
+<script>
+const element = document.getElementById("admin");
+
+if (element.value == "True") {
+    element.checked = true;
+} else {
+    element.checked = false;
+}
+
+element.addEventListener('click', () => {
+    if (element.checked) {
+        document.getElementById('admin_hidden').disabled = true;
+        element.value = "True";
+    } else {
+        document.getElementById('admin_hidden').disabled = false;
+        element.value = "False";
+    }
+});
+
+//Prevent button to send a submit
+$("#userEditForm").submit(function(e){
+    e.preventDefault();
+});
+
+$(document).ready( function () {
+    $('.edit').click( function(){
+        data = "name=" + document.getElementById("name").value + "&admin=" + document.getElementById("admin").value
+        console.log(data)
+        var ajxReq = $.ajax( {
+            url : '/users/{{user.id}}',
+            type : 'patch',
+            data : data,
+            success : function ( data ) {
+                $( "p" ).append( "Update request has Succeded." );
+            },
+            error : function ( jqXhr, textStatus, errorMessage ) {
+                $( "p" ).append( "Update request has Fail.");
+            }
+        });
+    });
+});
+
+</script>
+
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% extends "template.html" %}
+
+{% block content %}
+<body>
+    <div class="container listapessoas">
+    {% for pessoa in pessoas %}
+        <p>Nome: {{ pessoa[2] }}</p>
+        <p>Login: {{ pessoa[1] }}</p>
+
+    {% endfor %}
+
+    </div>
+
+</body>
+{% endblock content %}
