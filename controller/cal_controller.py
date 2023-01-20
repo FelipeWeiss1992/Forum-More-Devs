@@ -1,7 +1,8 @@
 from sqlmodel import Session, select
 from sqlalchemy.orm import selectinload
 
-from models.calendar_model import User, Event
+from models.forum_model import User, Post, SubPost
+
 
 from database import engine
 
