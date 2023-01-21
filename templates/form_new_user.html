@@ -12,40 +12,88 @@
 {% block content %}
 
 <body>
-  <div class="container">
-    <form action="/users" method="post">
+  <div class = "container">
 
-      <fieldset>
+    <div class = row >
 
-        <div class="form-group">
-          <label for="user_name">User name</label>
-          <input type="text" id="user_name" name="user_name" class="form-control">
-        </div>
+        <div class = col>
+            <form action="/users/" method="POST" class="border p-4 mt-2">
+                {{ form_criarconta.csrf_token }}
+                <h1>Criar Conta</h1>
+                <fieldset>
+                    <div class="form-group">
+                        {{ form_criarconta.user_name.label(class="form-control-label")  }}
+                        {% if form_criarconta.user_name.errors %}
+                            {{ form_criarconta.user_name(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">  
+                            {% for erro in form_criarconta.user_name.errors %}
 
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" class="form-control">
-        </div>
+                                {{ erro }}
 
-        <div class="form-group">
-          <label for="password1">Password:</label>
-          <input type="password" id="password1" name="password1" class="form-control">
-        </div>
+                            {% endfor %}
+                        </div>     
+                        {% else %}
+                            {{ form_criarconta.user_name(class="form-control") }}    
+                        {% endif%}
+                    </div>
 
-        <div class="form-group">
-          <label for="password2">Confirm password:</label>
-          <input type="password" id="password2" name="password2" class="form-control">
-        </div>
+                    <div class="form-group">
+                        {{ form_criarconta.name.label(class="form-control-label")  }}
+                        {% if form_criarconta.name.errors %}
+                            {{ form_criarconta.name(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">  
+                            {% for erro in form_criarconta.name.errors %}
+                                {{ erro }}
+                            {% endfor %}
+                        </div>     
+                        {% else %}
+                            {{ form_criarconta.name(class="form-control") }}    
+                        {% endif%}
+                    </div>
 
-        <input type="hidden" id="admin_hidden" value="False" name="admin">
-        <input type="checkbox" id="admin" name="admin" value="True">
-        <label for="admin"> Admin user (can create other users)</label><br>
+                    <div class="form-group">
+                        {{ form_criarconta.password1.label(class="form-control-label") }}
+                        {% if form_criarconta.password1.errors %}
+                            {{ form_criarconta.password1(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">  
+                            {% for erro in form_criarconta.password1.errors %}
+                                {{ erro }}
+                            {% endfor %}
+                        </div>     
+                        {% else %}
+                            {{ form_criarconta.password1(class="form-control") }}    
+                        {% endif%}
+                    </div>
 
-        <button type="submit" class="btn btn-success">Salvar</button>
-      </fieldset>
+                    <div class="form-group">
+                        {{ form_criarconta.password2.label(class="form-control-label") }}
+                        {% if form_criarconta.password2.errors %}
+                            {{ form_criarconta.password2(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">  
+                            {% for erro in form_criarconta.password2.errors %}
+                                {{ erro }}
+                            {% endfor %}
+                        </div>     
+                        {% else %}
+                            {{ form_criarconta.password2(class="form-control") }}    
+                        {% endif%}
+                    </div>
 
-    </form>
-  </div>
+                    <div class="form-group">
+                      <input type="hidden" id="admin_hidden" value="False" name="admin">
+                      {{ form_criarconta.admin }}
+                      {{ form_criarconta.admin.label(class="form-check-label"  ) }}
+                      
+                  </div>
+
+                </fieldset>
+                {{ form_criarconta.botao_submit_criarconta(class="btn btn-primary")}}
+            </form>
+        </div>    
+    </div>
+
+
+</div>
 </body>
 <!-- JS to enable/disble the checkbox of the hidden input otherwise the check will not send any data to the POST -->
 <script>

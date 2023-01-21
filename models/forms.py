@@ -1,26 +1,33 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import data_required, Length, Email, EqualTo, ValidationError
-from models import Usuario
+from models.forms import *
 from flask_login import current_user
+
+class FormCriarSubPost(FlaskForm):
+    description = TextAreaField('Post', validators=[data_required()])
+    botao_submit_criarsubpost = SubmitField('Responder Post')
+
+
+class FormCriarPost(FlaskForm):
+    title = StringField('Titulo', validators=[data_required()])
+    description = TextAreaField('Post', validators=[data_required()])
+    botao_submit_criarpost = SubmitField('Criar Post')
+
 
 
 class FormCriarConta(FlaskForm):
-    username = StringField('Nome de Usuário', validators=[data_required()])
-    email = StringField('E-mail', validators=[data_required(), Email()])
-    senha = PasswordField('Senha', validators=[data_required(), Length(6, 20)])
-    confirmacao_senha = PasswordField('Confirmação da Senha',validators=[data_required(), EqualTo('senha')])
+    user_name = StringField('Nome de Usuário', validators=[data_required()])
+    name = StringField('Nome Completo', validators=[data_required()])
+    password1 = PasswordField('Senha', validators=[data_required()])
+    password2 = PasswordField('Confirmação da Senha',validators=[data_required(), EqualTo('senha')])
+    admin = BooleanField('Admin')
     botao_submit_criarconta = SubmitField('Criar Conta')
 
-    def validate_email(self, email):
-        usuario = Usuario.query.filter_by(email=email.data).first()
-        if usuario:
-            raise ValidationError('E-mail já cadastrado')
-
 class FormLogin(FlaskForm):
-    email = StringField('E-mail', validators=[data_required(), Email()])
-    senha = PasswordField('Senha', validators=[data_required(), Length(6, 20)])
+    user_name = StringField('user_name', validators=[data_required()])
+    password = PasswordField('Senha', validators=[data_required()])
     lembrar_dados = BooleanField('Lembrar Dados de Acesso')
     botao_submit_login = SubmitField('Login')
 
@@ -36,9 +43,5 @@ class FormEditarPerfil(FlaskForm):
     curso_sql = BooleanField('Curso SQL')
     botao_submit_editarperfil = SubmitField('Confirmar Edição')
 
-    def validate_email(self, email):
-        if current_user.email != email.data:
-            usuario = Usuario.query.filter_by(email=email.data).first()
-            if usuario:
-                raise ValidationError('E-mail já cadastrado')
+   
         

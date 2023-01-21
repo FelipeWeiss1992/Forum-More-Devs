@@ -11,6 +11,8 @@ create_db_and_tables()
 
 from views.views import *
 from views.user import *
+from views.posts import *
+from views.subpost import *
 
 if __name__ == '__main__' :
     app.secret_key = 'super secret key'

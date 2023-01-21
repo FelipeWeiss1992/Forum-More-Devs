@@ -4,30 +4,8 @@
 <body>
     <div class="container calendario">
 
-    <ul class="dias-extenso">
-
-        {% for dias_ext in DIAS_DA_SEMANA %}
-            <li>{{ dias_ext }}</li>
-        {% endfor %}
-    </ul>
-
-    <ul class="dias">
-
-        {% for semanas in calDays %}
-            {% for dias in semanas %}
-            
-            <li {% if dias != 0 %}id="dia-{{ dias }}"{% endif %} {% if dias == 0 %}class="nao-mostra"{% endif %}>{{ dias }}</li>
-            
-            {% endfor %}
-        {% endfor %}
-
-    </ul>
-
-    <p>ID: {{user_info[0]}} </p>
-    <p>User name: {{user_info[1]}} </p>
-
-
-
+    
+            <h1>ola</h1>
 
 
     </div>

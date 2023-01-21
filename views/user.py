@@ -1,6 +1,7 @@
 from flask import render_template, request, redirect, session, flash, url_for
 from main import app
 from controller.users_controller import listUsers, createUser, updateUser, deleteUser
+from models.forms import FormCriarConta
 
 ###
 ### User manupulation
@@ -78,16 +79,19 @@ def editUserForm(id):
 ### FORM to add new users
 @app.route('/users/new_user')
 def new_user_form():
+
+    form_criar_conta = FormCriarConta()
+
     if session:
         if (session['user_logged_in'] == True):
 
             user_info = [session['ID'],session['user']]
-
-            return render_template('form_new_user.html', user_info=user_info)
+            
+            return render_template('form_new_user.html', user_info=user_info, form_criarconta = form_criar_conta)
         else:
             return redirect(url_for('login'))
     else:
-        return redirect(url_for('login'))
+            return redirect('/login')
 
     
 ### End of User routes

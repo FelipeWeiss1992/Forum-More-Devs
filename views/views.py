@@ -4,6 +4,7 @@ from main import app
 from controller.auth import validateLogin
 import calendar
 from datetime import date
+from models.forms import FormLogin
 
 
 ###
@@ -14,13 +15,10 @@ from datetime import date
 def home():
     if session:
         if (session['user_logged_in'] == True):
-            currentDate = date.today()
-            cal = calendar.Calendar(firstweekday=6)
-            DIAS_DA_SEMANA = ("SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY")
-            calDays = cal.monthdayscalendar(2022, 12)
+       # if 'teste' == 'teste1':
             user_info = [session['ID'],session['user']]
-
-            return render_template('calendar.html', calDays=calDays, aux=0, DIAS_DA_SEMANA=DIAS_DA_SEMANA, user_info=user_info, title=currentDate)
+            #return render_template('calendar.html',  aux=0)
+            return render_template('calendar.html',user_info=user_info)
         else:
             return redirect(url_for('login'))
     else:
@@ -40,7 +38,9 @@ def new_event():
 
 @app.route('/login/')
 def login():
-    return render_template('login.html', titulo = 'User login')
+    form_login = FormLogin()
+    
+    return render_template('login.html', titulo = 'User login', form_login = form_login)
 
 @app.route('/autenticate', methods=['POST',])
 def autenticate():
