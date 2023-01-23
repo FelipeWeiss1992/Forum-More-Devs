@@ -1,7 +1,8 @@
 from flask import render_template, request, redirect, session, flash, url_for
 from main import app
-#from controller.users_controller import listUsers, createUser, updateUser
+from controller.users_controller import listUsers, createUser, updateUser
 from controller.auth import validateLogin
+
 import calendar
 from datetime import date
 from models.forms import FormLogin
@@ -15,10 +16,10 @@ from models.forms import FormLogin
 def home():
     if session:
         if (session['user_logged_in'] == True):
-       # if 'teste' == 'teste1':
             user_info = [session['ID'],session['user']]
-            #return render_template('calendar.html',  aux=0)
-            return render_template('calendar.html',user_info=user_info)
+            allUsers = listUsers()
+            print(allUsers)
+            return render_template('home.html',user_info=user_info, all_users = allUsers)
         else:
             return redirect(url_for('login'))
     else:

@@ -28,12 +28,6 @@ class Post(SQLModel, table=True):
     
     sub_posts: Optional[List["SubPost"]] = Relationship(back_populates="posts")
     
-
-# class SubPost(Post, table=True):
-#     id_post: Optional[int] = Field(default=None, foreign_key="post.id")
-#     posts: Optional[Post] = Relationship(back_populates="sub_posts")
-    
-    
     
 class SubPost(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True, nullable=False)

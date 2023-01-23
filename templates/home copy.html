@@ -1,0 +1,77 @@
+{% extends "template.html" %}
+
+{% block content %}
+<body>
+
+    <h1 class="flex-justify-center ">Forum more devs</h1>
+
+    <div class="container listapessoas">
+
+    <div class="accordion" id="accordionForum">
+
+    {% for user in all_users %}
+
+        {% if user.posts %}
+
+            {% for post in user.posts %}
+                    
+            <div class="posts">
+                <div class="posts_profile">
+                    <i class="fa-solid fa-user"></i>
+                    <p>{{ user.user_name }}</p>
+                </div>
+                <div class="post_title">
+                    <p>{{ post.title }}</p>
+                    <p>{{ post.date_created }}</p>
+                    <div class="post_replies">
+
+                        {% for user_rep in all_users %}
+
+                        {% if user_rep.sub_posts %}
+                        
+                            {% for sub_post in user_rep.sub_posts %}
+
+                                
+
+                                {% if post.id == sub_post.id_post %}
+                                    
+                                    <p>{{ user_rep.user_name }}</p>
+                                    
+                                    <p>ENTROU{{ sub_post.description }}</p>
+                                    
+                                    <div class="subpost_control">
+                                        <button>Edit</button>
+                                        <button>Delete</button>
+                                    </div>
+                                {% endif %}
+                            
+                            {% endfor %}
+
+                        {% endif %}
+                    {% endfor %}
+
+
+                    </div>
+                </div>
+
+                <div class="post_control">
+                    <button>Edit</button>
+                    <button>Delete</button>
+                </div>
+                    
+
+            
+            </div> <!--End of div post-->
+            {% endfor %}
+
+        {% endif %}
+
+            
+    {% endfor %}
+
+    </div>
+
+    </div>
+
+</body>
+{% endblock content %}

@@ -1,5 +1,5 @@
 from sqlmodel import Session, select
-from sqlalchemy.orm import selectinload
+from sqlalchemy.orm import selectinload, joinedload
 import hashlib
 
 from models.forum_model import User, Post, SubPost
@@ -9,17 +9,20 @@ from database import engine
 
 ### Select a user by its ID or user name if none has been passed it will return all users
 # Should NOT be used with both parameters at the same time.
-def listUsers(id=None, user_name=None):
+def listUsers(id=None):
     with Session(engine) as session:
         ### The option .options(selectinload(User.events)) has to me used so that the query returns the data instead o "lazy loading" it
         ### if removed the option, you will have to use de data only inside of a session otherwise an error will be trown as lazy load problem.
-        if id is not None or user_name is not None:
-            statement = select(User).where(User.id == id).options(selectinload(User.posts))
-            user = session.exec(statement)
-            return user.first()
+        if id != None:
+            statement = select(User).where(User.id == id).options(selectinload(User.posts)).options(selectinload(User.sub_posts))
+            user = session.exec(statement).first()
+            print(user)
+            return user
         
         else:
-            statement = select(User).options(selectinload(User.posts))
+            #statement = select(User).options(selectinload(User.posts))
+            #statement = select(User).options(selectinload(User.posts)).options(selectinload(User.sub_posts))
+            statement = select(User).options(selectinload(User.posts),selectinload(User.sub_posts) )
             user = session.exec(statement)
             ### The .all() is used to return the result as an Object, otherwise the return will be shown as a object in the memory. The .first() also can be used to return a single object.
             return user.all()

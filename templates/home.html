@@ -1,0 +1,111 @@
+{% extends "template.html" %}
+
+{% block content %}
+<body>
+
+    <h1 class="flex-justify-center ">Forum more devs</h1>
+
+    <div class="container listapessoas">
+
+    <div class="accordion" id="accordionForum">
+
+    {% for user in all_users %}
+
+        {% if user.posts %}
+
+            {% for post in user.posts %}
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading{{post.id}}">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{post.id}}" aria-expanded="false" aria-controls="collapse{{post.id}}">
+                        {{ post.title }}
+                    </button>
+                </h2>
+
+                <div id="collapse{{post.id}}" class="accordion-collapse collapse" aria-labelledby="heading{{post.id}}" data-bs-parent="#accordionForum">
+                    <div class="accordion-body">
+
+                    <!-- Aqui vai o inicio do conteúdo do acordion -->
+
+
+
+                    <div class="posts">
+                        <div class="posts_profile">
+                            <i class="fa-solid fa-user"></i>
+                            <p>{{ user.user_name }}</p>
+                        </div>
+                        <div class="post_title">
+                            <p>{{ post.title }}</p>
+                            <p>{{ post.date_created }}</p>
+                            <div class="post_replies">
+        
+                                {% for user_rep in all_users %}
+        
+                                {% if user_rep.sub_posts %}
+                                
+                                    {% for sub_post in user_rep.sub_posts %}
+        
+                                        
+        
+                                        {% if post.id == sub_post.id_post %}
+                                            
+                                            <p>{{ user_rep.user_name }}</p>
+                                            
+                                            <p>ENTROU{{ sub_post.description }}</p>
+                                            
+                                            <div class="subpost_control">
+                                                <button>Edit</button>
+                                                <button>Delete</button>
+                                            </div>
+                                        {% endif %}
+                                    
+                                    {% endfor %}
+        
+                                {% endif %}
+                            {% endfor %}
+        
+        
+                            </div>
+                        </div>
+        
+                        <div class="post_control">
+                            <button>Edit</button>
+                            <button>Delete</button>
+                        </div>
+                            
+        
+                    
+ <!--End of div post-->
+
+
+
+
+
+
+
+
+                    <!-- Fim do conteudo do acordion -->
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+            
+            {% endfor %}
+
+        {% endif %}
+
+            
+    {% endfor %}
+
+    </div>
+
+    </div>
+
+
+
+</body>
+{% endblock content %}

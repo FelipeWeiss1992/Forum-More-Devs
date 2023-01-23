@@ -1,5 +1,6 @@
 from sqlmodel import Session, select
 from sqlalchemy.orm import selectinload
+from main import app
 
 from models.forum_model import User, Post, SubPost
 
@@ -25,8 +26,6 @@ def editPost(userID,id):
 def deletePost(userID, id):
     pass
 
-
-
 def createSubPost(userID,subpost_description):
     with Session(engine) as session:
         new_subpost = SubPost(id=None, description=subpost_description, id_post="2", id_user=userID)
@@ -34,3 +33,17 @@ def createSubPost(userID,subpost_description):
         session.commit()
         session.refresh(new_subpost)
         print(new_subpost)
+        
+        
+def listReplyOfPost(postID):
+    with Session(engine) as session:
+        statement = select(SubPost).where(SubPost.id_post == postID)
+        posts_rep = session.exec(statement).all()
+        return posts_rep
+    
+#### Testando possibilidade de uso de funcioções dentro do jinja para poder retornar a quantidade de posts (ainda precisa ajustar)
+@app.context_processor
+def utility_processor():
+    def format_price(amount, currency=u'€'):
+        return u'{0:.2f}{1}'.format(amount, currency)
+    return dict(format_price=format_price)

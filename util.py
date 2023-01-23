@@ -2,7 +2,7 @@ from database import create_db_and_tables
 from sqlmodel import Session, select
 import hashlib
 from controller.auth import validateLogin
-
+from controller.users_controller import listUsers
 from datetime import datetime, date
 
 
@@ -42,6 +42,12 @@ def createSubPosts():
         print(new_post)
 
 
+def listReplyOfPost(postID):
+    with Session(engine) as session:
+        statement = select(SubPost).where(SubPost.id_post == postID)
+        posts_rep = session.exec(statement).all()
+        print(posts_rep)
+    
 
 
 
@@ -60,24 +66,25 @@ print(date.today())
 #createSubPosts()
 
 
+#listReplyOfPost(3)
 
 
 ### Finds a User and returns it with its respective Events
-with Session(engine) as session:
-    statement = select(User).where(User.user_name == "jean")
-    #statement = select(User)
-    user = session.exec(statement).first()
-    print("USER:")
-    print(user)
-    print("----POSTS----")
-    if user.posts:
-        for posts in user.posts:
-            print(posts)
+# with Session(engine) as session:
+#     statement = select(User).where(User.user_name == "jean")
+#     #statement = select(User)
+#     user = session.exec(statement).first()
+    # print("USER:")
+    # print(user)
+    # print("----POSTS----")
+    # if user.posts:
+    #     for posts in user.posts:
+    #         print(posts)
         
-        print("----sub-posts----")
-        if user.sub_posts:
-            for sub_posts in user.sub_posts:
-                print(sub_posts)
+    #     print("----sub-posts----")
+    #     if user.sub_posts:
+    #         for sub_posts in user.sub_posts:
+    #             print(sub_posts)
 
 
 # with Session(engine) as session:
@@ -90,12 +97,15 @@ with Session(engine) as session:
 #         for events in user.events:
 #             print(events)
 
-# user = listAllUsers()
+user = listUsers()
 
-# for pessoa in user:
-#     print(pessoa)
-#     for evento in pessoa.events:
-#         print(evento)
+for pessoa in user:
+    print("PESSOA")
+    print(pessoa)
 
+    print("EVENTOS: ")
+    if pessoa.sub_posts:
+        for evento in pessoa.sub_posts:
+            print(f"  Evento: {evento}")
 
 
