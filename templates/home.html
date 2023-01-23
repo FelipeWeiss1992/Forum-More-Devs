@@ -30,26 +30,38 @@
 
 
                     <div class="posts">
+                        <div class="post_wrapp">
+
                         <div class="posts_profile">
                             <i class="fa-solid fa-user"></i>
                             <p>{{ user.user_name }}</p>
-                        </div>
-                        <div class="post_title">
-                            <p>{{ post.title }}</p>
                             <p>{{ post.date_created }}</p>
+                        </div>
+                        <div class="post_body">
+                            <p class="title">{{ post.title }}</p>
+                            
+                            <p>{{ post.description }}</p>
+                        </div>
+                        <div class="post_control">
+                            <button>Edit</button>
+                            <button>Delete</button>
+                        </div>
+                        </div>
+
+                        
                             <div class="post_replies">
         
                                 {% for user_rep in all_users %}
-        
+                                
                                 {% if user_rep.sub_posts %}
                                 
                                     {% for sub_post in user_rep.sub_posts %}
-        
+                                    <div class="replies_wrapper">
                                         
         
                                         {% if post.id == sub_post.id_post %}
                                             
-                                            <p>{{ user_rep.user_name }}</p>
+                                            <p class="post_replies_name">{{ user_rep.user_name }}</p>
                                             
                                             <p>ENTROU{{ sub_post.description }}</p>
                                             
@@ -58,7 +70,7 @@
                                                 <button>Delete</button>
                                             </div>
                                         {% endif %}
-                                    
+                                    </div>
                                     {% endfor %}
         
                                 {% endif %}
@@ -66,12 +78,11 @@
         
         
                             </div>
+
+
                         </div>
         
-                        <div class="post_control">
-                            <button>Edit</button>
-                            <button>Delete</button>
-                        </div>
+
                             
         
                     
