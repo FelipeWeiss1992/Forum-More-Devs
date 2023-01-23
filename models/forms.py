@@ -26,7 +26,7 @@ class FormCriarConta(FlaskForm):
     botao_submit_criarconta = SubmitField('Criar Conta')
 
 class FormLogin(FlaskForm):
-    user_name = StringField('user_name', validators=[data_required()])
+    user_name = StringField('Nome de Usuário', validators=[data_required()])
     password = PasswordField('Senha', validators=[data_required()])
     lembrar_dados = BooleanField('Lembrar Dados de Acesso')
     botao_submit_login = SubmitField('Login')
@@ -36,11 +36,11 @@ class FormEditarPerfil(FlaskForm):
     username = StringField('Nome de Usuário', validators=[data_required()])
     email = StringField('E-mail', validators=[data_required(), Email()])
     foto_perfil = FileField('Atualizar Foto de Perfil', validators=[FileAllowed(['jpg', 'png'])])
-    curso_excel = BooleanField('Curso Excel')
-    curso_vba = BooleanField('Curso VBA')
-    curso_powerbi = BooleanField('Curso Power BI')
-    curso_python = BooleanField('Curso Python')
-    curso_sql = BooleanField('Curso SQL')
+    java = BooleanField('Java')
+    python = BooleanField('Python')
+    html = BooleanField('HTML')
+    javascript = BooleanField('JavaScript')
+    sql = BooleanField('SQL')
     botao_submit_editarperfil = SubmitField('Confirmar Edição')
 
    

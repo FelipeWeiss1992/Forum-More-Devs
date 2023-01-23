@@ -23,48 +23,13 @@
 </head>
 <header>
   
-  {% block title %} <h1 class="title">{{ title }}</h1> {% endblock title %}
+  {% block title %}  {% endblock title %}
 
 </header>
 
-<div class="content__wrapper">
-
-  <div class="navigation">
-  <nav>
-    <ul class="menu nav-pills">
-      <li class="nav-item">
-        <a class="nav-link" href="/">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/events">List events</a>
-        <li class="nav-item">
-          <a class="nav-link" href="/posts/new_subpost">Responder events</a>
-        </li>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/posts/new_post">New post</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/logout">Logout</a>
-      </li>
-    </ul>
-  </nav>
-
-  <p>Admin menu</p>
-  <nav>
-    <ul class="menu nav-pills admin-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/users">List users</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/users/new_user">New user</a>
-      </li>
-    </ul>
-  </nav>
+{% include 'navbar.html' %}
 
 
-
-</div>
 
   <div class="content">
 

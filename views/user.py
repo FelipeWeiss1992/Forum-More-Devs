@@ -13,9 +13,11 @@ from models.forms import FormCriarConta
 def user():
     if request.method == 'GET':
         ### List all users 
-        users_list = listUsers()
-        print(users_list)
-        return render_template('list_users.html', title = 'User list', users_list=users_list)
+        if (session['user_logged_in'] == True):
+            user_info = [session['ID'],session['user']]
+            users_list = listUsers()
+            print(users_list)
+            return render_template('list_users.html',users_list=users_list,user_info=user_info)
     elif request.method == 'POST':
         ### Create a new user on the database:
         if (request.form['user_name'] != "") and (request.form['name'] != "") and (request.form['password1'] != ""):
@@ -30,6 +32,8 @@ def user():
             flash("ERROR! Invalid parameters")
             
             return redirect(url_for("home"))
+    else:
+        return redirect(url_for('login'))
 
 
 ### List, update and delete a user based on ID and the post type
@@ -39,9 +43,13 @@ def user_manager(id):
     match request.method:
         case 'GET':
             ### List user by ID
-            users_list = listUsers(id)
-            print(users_list)
-            return render_template('list_single_user.html', title = 'User list', user=users_list)
+            if (session['user_logged_in'] == True):
+                user_info = [session['ID'],session['user']]
+                users_list = listUsers()
+                print(users_list)
+                users_list = listUsers(id)
+                print(users_list)
+                return render_template('list_single_user.html', title = 'User list', user=users_list, user_info=user_info)
         case 'POST':
             pass
         case 'PATCH':
@@ -82,16 +90,8 @@ def new_user_form():
 
     form_criar_conta = FormCriarConta()
 
-    if session:
-        if (session['user_logged_in'] == True):
+    return render_template('form_new_user.html', form_criarconta = form_criar_conta)
 
-            user_info = [session['ID'],session['user']]
-            
-            return render_template('form_new_user.html', user_info=user_info, form_criarconta = form_criar_conta)
-        else:
-            return redirect(url_for('login'))
-    else:
-            return redirect('/login')
 
     
 ### End of User routes
