@@ -14,14 +14,20 @@ from models.forms import FormLogin
 
 @app.route('/')
 def home():
-    
+    print(session)
     if session['user_logged_in'] == True:
         user_info = [session['ID'],session['user']]
+
         allUsers = listUsers()
+        print(allUsers)
+        
         return render_template('home.html',user_info=user_info, all_users = allUsers)
     else:
         allUsers = listUsers()
-        return render_template('home.html',user_info=user_info, all_users = allUsers)
+        #user_info = [session['ID'],session['user']]
+        
+        print(allUsers)
+        return render_template('home.html', all_users = allUsers)
 
 
 
@@ -45,7 +51,7 @@ def login():
 @app.route('/autenticate', methods=['POST',])
 def autenticate():
 
-    session['user_logged_in'] == False
+    
 
     autenticated, user_auth = validateLogin(request.form['user_name'], request.form['password'])
     
@@ -64,6 +70,7 @@ def autenticate():
 @app.route('/logout/')
 def logout():
     session.clear()
+    session['user_logged_in'] = False
     flash('You have been logged out')
     return redirect(url_for('login'))
 

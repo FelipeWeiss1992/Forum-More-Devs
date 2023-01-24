@@ -63,7 +63,7 @@ print(date.today())
 #createPosts()
 
 ### Uncoment to create SubPosts
-#createSubPosts()
+createSubPosts()
 
 
 #listReplyOfPost(3)
@@ -97,15 +97,15 @@ print(date.today())
 #         for events in user.events:
 #             print(events)
 
-user = listUsers()
+# user = listUsers()
 
-for pessoa in user:
-    print("PESSOA")
-    print(pessoa)
+# for pessoa in user:
+#     print("PESSOA")
+#     print(pessoa)
 
-    print("EVENTOS: ")
-    if pessoa.sub_posts:
-        for evento in pessoa.sub_posts:
-            print(f"  Evento: {evento}")
+#     print("EVENTOS: ")
+#     if pessoa.sub_posts:
+#         for evento in pessoa.sub_posts:
+#             print(f"  Evento: {evento}")
 
 

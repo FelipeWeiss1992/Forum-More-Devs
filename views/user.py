@@ -17,9 +17,11 @@ def user():
             user_info = [session['ID'],session['user']]
             users_list = listUsers()
             print(users_list)
-            return render_template('list_users.html',users_list=users_list,user_info=user_info)
+            return render_template('list_users.html',users_list=users_list, user_info=user_info)
     elif request.method == 'POST':
         ### Create a new user on the database:
+        user_info = [session['ID'],session['user']]
+        
         if (request.form['user_name'] != "") and (request.form['name'] != "") and (request.form['password1'] != ""):
         
             print(request.form['user_name'], request.form['name'],request.form['password1'],request.form['admin'])
@@ -27,7 +29,7 @@ def user():
             
             flash(f"User {request.form['user_name']} created.")
             
-            return redirect(url_for("home"))
+            return redirect(url_for("home"), user_info=user_info)
         else:
             flash("ERROR! Invalid parameters")
             
@@ -81,8 +83,10 @@ def user_manager(id):
 @app.get('/users/edit/<id>/')
 def editUserForm(id):
     users_list = listUsers(id)
+    user_info = [session['ID'],session['user']]
+    
     print(users_list)
-    return render_template('edit_user.html', title = 'Edit user: ' + users_list.name, user=users_list)
+    return render_template('edit_user.html', title = 'Edit user: ' + users_list.name, user=users_list, user_info=user_info)
 
 ### FORM to add new users
 @app.route('/users/new_user')

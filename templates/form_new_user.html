@@ -95,8 +95,10 @@
   element.addEventListener('click', () => {
     if (element.checked) {
       document.getElementById('admin_hidden').disabled = true;
+      document.getElementById("admin").value = true;
     } else {
       document.getElementById('admin_hidden').disabled = false;
+      document.getElementById("admin").value = false;
     }
 })
 </script>

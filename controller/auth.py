@@ -22,7 +22,7 @@ def validateLogin(user, password):
                 return True, user_db
             else:
                 print("User or password dont match")
-                return False
+                return False, False
 
             
         else:
