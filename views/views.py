@@ -5,7 +5,8 @@ from controller.auth import validateLogin
 
 import calendar
 from datetime import date
-from models.forms import FormLogin
+from models.forms import FormLogin, FormCriarPost, FormCriarSubPost
+
 
 
 ###
@@ -14,20 +15,24 @@ from models.forms import FormLogin
 
 @app.route('/')
 def home():
-    print(session)
+
+    form_criarpost = FormCriarPost()
+    form_criarSubPost = FormCriarSubPost()
+    
+
     if session['user_logged_in'] == True:
         user_info = [session['ID'],session['user']]
-
+        
         allUsers = listUsers()
         print(allUsers)
         
-        return render_template('home.html',user_info=user_info, all_users = allUsers)
+        return render_template('home.html',user_info=user_info, all_users = allUsers, form_criarpost = form_criarpost, form_criar_subpost = form_criarSubPost)
     else:
         allUsers = listUsers()
         #user_info = [session['ID'],session['user']]
         
         print(allUsers)
-        return render_template('home.html', all_users = allUsers)
+        return render_template('home.html', all_users = allUsers, form_criarpost = form_criarpost, form_criar_subpost = form_criarSubPost)
 
 
 

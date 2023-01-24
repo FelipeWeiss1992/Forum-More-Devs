@@ -1,8 +1,9 @@
 from flask import render_template, request, redirect, session, flash, url_for
 from main import app
 from controller.users_controller import listUsers, createUser, updateUser, deleteUser
-from controller.post_controller import createPost
+from controller.post_controller import createPost, createSubPost
 from models.forms import FormCriarPost
+#from views.views import home
 
 
 
@@ -33,16 +34,38 @@ def post():
         print(users_list)
         return render_template('list_users.html', title = 'User list', users_list=users_list)
     elif request.method == 'POST':
-        ### Create a new user on the database:
-        if (request.form['title'] != "") and (request.form['description'] != ""):
+        ### Create a post on the database:
         
-            print(request.form['title'], request.form['description'])
-            createPost(session['ID'], request.form['title'],request.form['description'])
-            
-            flash("Post created.")
-            
-            return redirect(url_for("home"))
+        if session:
+            if (session['user_logged_in'] == True):
+
+                user_info = [session['ID'],session['user']]
+                
+                createPost(session['ID'], request.form['title'],request.form['description'])
+                
+                flash("Post created.")
+                
+                return redirect(url_for("home"))
+                
+            else:
+                return redirect(url_for('login'))
         else:
-            flash("ERROR! Invalid parameters")
+                return redirect(url_for('login'))
+
+        
+@app.post('/posts/<id>/new_subpost/')
+def new_subpost(id):
+
+    if session:
+        if (session['user_logged_in'] == True):
+
+            user_info = [session['ID'],session['user']]
+            
+            createSubPost(session['ID'], id, request.form['description'])
             
             return redirect(url_for("home"))
+
+        else:
+            return redirect(url_for('login'))
+    else:
+            return redirect('/login')

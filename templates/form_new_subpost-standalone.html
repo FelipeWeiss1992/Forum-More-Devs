@@ -1,0 +1,22 @@
+<form action="/posts/{{ post.id }}/new_subpost/" method="POST" class="">
+    <h1 class="main_title">Responder</h1>
+    <fieldset>
+
+        <div class="form-group">
+            {{ form_criar_subpost.description.label(class="form-control-label") }}
+            {% if form_criar_subpost.description.errors %}
+            {{ form_criar_subpost.description(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for erro in form_criar_subpost.description.errors %}
+                {{ erro }}
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ form_criar_subpost.description(class="form-control") }}
+            {% endif%}
+        </div>
+
+
+    </fieldset>
+    {{ form_criar_subpost.botao_submit_criarsubpost(class="btn btn-primary")}}
+</form>

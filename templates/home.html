@@ -4,7 +4,8 @@
 <body>
         
 
-    <h1 class="flex-justify-center ">Forum more devs</h1>
+    <h1 class="flex-justify-center main_title">Forum more devs</h1>
+    <br><br>
 
     <div class="container listapessoas">
 
@@ -40,43 +41,48 @@
                             <p class="title">{{ post.title }}</p>
                             
                             <p>{{ post.description }}</p>
-                        </div>
-                        <div class="post_control">
-                            <button>Edit</button>
-                            <button>Delete</button>
+                            <div class="post_control">
+                                <a href="/users/edit/{{ user.id }}" title="Edit"><i class="fa-solid fa-pencil"></i></a>
+                                <a href="#" user-delete data-id="{{ user.id }}" title="Delete"><i class="fa-solid fa-trash"></i></a>
+                            </div>
                         </div>
                         </div>
 
                         
-                            <div class="post_replies">
-        
-                                {% for user_rep in all_users %}
-                                
-                                {% if user_rep.sub_posts %}
-                                
+                        
+                        {% for user_rep in all_users %}
+                        
+                        {% if user_rep.sub_posts %}
+                        
+                        
+
                                     {% for sub_post in user_rep.sub_posts %}
+                                    
+                                    
                                     <div class="replies_wrapper">
-                                        
-        
                                         {% if post.id == sub_post.id_post %}
-                                            
+                                        <div class="post_replies">
                                             <p class="post_replies_name">{{ user_rep.user_name }}</p>
                                             
                                             <p>{{ sub_post.description }}</p>
                                             
                                             <div class="subpost_control">
-                                                <button>Edit</button>
-                                                <button>Delete</button>
+                                                <a href="/users/edit/{{ user.id }}" title="Edit"><i class="fa-solid fa-pencil"></i></a>
+                                                <a href="#" user-delete data-id="{{ user.id }}" title="Delete"><i class="fa-solid fa-trash"></i></a>
                                             </div>
+                                        </div>
                                         {% endif %}
                                     </div>
                                     {% endfor %}
+                                
+                                
         
                                 {% endif %}
+
                             {% endfor %}
         
-        
-                            </div>
+                        {% include 'form_new_subpost-standalone.html' %}
+                            
 
 
                         </div>
@@ -115,7 +121,11 @@
 
     </div>
 
-
+    <br><br>
+    <div class="container">
+        {% include 'form_new_post-standalone.html' %}
+    </div>
 
 </body>
 {% endblock content %}
+

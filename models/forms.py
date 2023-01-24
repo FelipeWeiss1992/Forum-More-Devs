@@ -6,7 +6,7 @@ from models.forms import *
 from flask_login import current_user
 
 class FormCriarSubPost(FlaskForm):
-    description = TextAreaField('Post', validators=[data_required()])
+    description = TextAreaField('', validators=[data_required()])
     botao_submit_criarsubpost = SubmitField('Responder Post')
 
 

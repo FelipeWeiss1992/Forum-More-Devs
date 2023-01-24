@@ -1,0 +1,37 @@
+<form action="/posts/" method="POST" class="">
+    <h1 class="main_title">Criar Post</h1>
+    <fieldset>
+        <div class="form-group">
+            {{ form_criarpost.title.label(class="form-control-label") }}
+            {% if form_criarpost.title.errors %}
+            {{ form_criarpost.title(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for erro in form_criarpost.title.errors %}
+
+                {{ erro }}
+
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ form_criarpost.title(class="form-control") }}
+            {% endif%}
+        </div>
+
+        <div class="form-group">
+            {{ form_criarpost.description.label(class="form-control-label") }}
+            {% if form_criarpost.description.errors %}
+            {{ form_criarpost.description(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for erro in form_criarpost.description.errors %}
+                {{ erro }}
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ form_criarpost.description(class="form-control") }}
+            {% endif%}
+        </div>
+
+
+    </fieldset>
+    {{ form_criarpost.botao_submit_criarpost(class="btn btn-primary")}}
+</form>

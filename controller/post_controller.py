@@ -26,14 +26,14 @@ def editPost(userID,id):
 def deletePost(userID, id):
     pass
 
-def createSubPost(userID,subpost_description):
+def createSubPost(userID, postID,subpost_description):
     with Session(engine) as session:
-        new_subpost = SubPost(id=None, description=subpost_description, id_post="2", id_user=userID)
+        new_subpost = SubPost(id=None, description=subpost_description, id_post=postID, id_user=userID)
         session.add(new_subpost)
         session.commit()
         session.refresh(new_subpost)
         print(new_subpost)
-        
+        return True
         
 def listReplyOfPost(postID):
     with Session(engine) as session:

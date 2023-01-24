@@ -2,29 +2,42 @@
 
 {% block content %}
 <body>
+
+    
     <div class="container">
+        
+        <h1 class="main_title">Perfil de usuário</h1>
+        
         <ul class="list__user">
                 <li>ID: {{ user.id }} </li>
                 <li>Login: {{ user.user_name }}</li>
                 <li>Name: {{ user.name }}</li>
                 <li>Admin: {{ user.admin }}</li>
         </ul>
+        
+        <a class="btn btn-success" href="/users/edit/{{ user.id }}" title="Edit">Editar dados de usuário</a>
+        <br><br>
 
         <h3>Events:</h3>
         <ul class="list__events">
-        {% for event in user.events %}
+
+        {% if user.posts %}
+
+            {% for post in user.posts %}
+        
             <li>
-                <h5>{{ event.title }}</h5>
-                <p>Date: {{ event.data_event }} </p>
-                <p> {{ event.description }} </p>
+                <h5>{{ post.title }}</h5>
+                <p>Date: {{ post.date_created }} </p>
+                <p> {{ post.description }} </p>
             </li>
             <li>
                 <p>delete</p>
                 <p>edit</p>
             </li>
         {% endfor %}
-        </ul>
+        {% endif %}
 
+        </ul>
 
 
     </div>

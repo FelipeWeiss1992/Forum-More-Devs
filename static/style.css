@@ -1,12 +1,25 @@
 :root {
-    --hover-color: rgba(0,0,0,.1);
+    --hover-color: rgba(240, 240, 240, 0.1);
     --dark-gray-60: rgb(60,60,60);
+    --gray-lines: rgb(233 233 233);
+    --laranja-more: #ffa800;
+    --background-001: #e7f1ff;
 
 }
 
 body {
-    background-color: rgb(4, 15, 85);
-    color: rgb(165, 86, 2);
+    background-color: #1e2447;
+    color: #ffa800;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.main_title {
+    color: #ffa800 !important;
+    font-weight: bolder;
+}
+
+.navbar-brand img {
+    max-width: 150px;
 }
 
 .content__wrapper {
@@ -52,6 +65,9 @@ a, a:hover {
 .user__list .heading {
     background-color: var(--dark-gray-60);
     margin-bottom: 0px;
+    background-color: #ffa800;
+    margin-bottom: 0px;
+    color: black;
 }
 
 .user__list ul {
@@ -72,6 +88,9 @@ a, a:hover {
     display: flex;
     flex-direction: column;
     padding-left: 0px;
+    background-color: #e7f1ff;
+    border-radius: 1rem;
+    padding: 1rem;
     margin-bottom: 2rem;
 }
 
@@ -81,8 +100,9 @@ a, a:hover {
 
 .list__user .heading {
     font-size: 1.5rem;
-    color: white;
-    background-color: #666;
+    background-color: #ffa800;
+    margin-bottom: 0px;
+    color: black;
 }
 
 .list__user .actions > a {
@@ -104,6 +124,10 @@ a, a:hover {
     padding-left: 0px;
     display: grid;
     grid-template-columns: 3fr 1fr;
+    background-color: var(--background-001);
+    border-radius: 1rem;
+
+
 }
 
 .list__events li {
@@ -129,23 +153,38 @@ a, a:hover {
 .posts .post_wrapp {
     position: relative;
     display: grid;
+    background-color: #f1f1f1;
     grid-template-columns: minmax(80px, 150px) 1fr;
-    border: 1px solid var(--hover-color);
     border-radius: 1rem;
     padding: .5rem;
     margin-bottom: 1rem;
 }
 
 .posts .post_replies {
+    position: relative;
     margin-left: 2rem;
-    border: 1px solid var(--hover-color);
     border-radius: 1rem;
     padding: .8rem 1rem;
     margin-bottom: 1rem;
+    background-color: #f1f1f1;
+    font-size: .9rem;
+    color: rgb(59, 59, 59);
 }
 
+.posts .post_replies::after {
+    content: '';
+    width: 30px;
+    height: 30px;
+    background-color:#f1f1f1;
+    position: absolute;
+    left: 7rem;
+    top: -0.5rem;
+    rotate: 45deg;
+}
+
+
 .posts .post_replies_name {
-    border-bottom: 1px solid var(--hover-color);
+    border-bottom: 1px solid var(--gray-lines);
     font-size: 1.2rem;
     font-weight: 600;
 }
@@ -157,12 +196,27 @@ a, a:hover {
 
 .post_control {
     position: absolute;
+    display: flex;
+    gap: 1rem;
     right: 1rem;
-    bottom: 1rem;
+    top: .8rem;
 }
 
 .subpost_control {
+    display: flex;
+    gap: 1rem;
     position: absolute;
-    bottom: -1.5rem;
-    right: 0px;
+    top: .8rem;
+    right: 1rem;
+}
+
+
+.listapessoas ul {
+    background-color: #e7f1ff;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.navbar {
+    margin-bottom: 3rem;
 }
