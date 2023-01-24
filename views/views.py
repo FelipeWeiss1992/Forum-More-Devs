@@ -34,12 +34,6 @@ def home():
         print(allUsers)
         return render_template('home.html', all_users = allUsers, form_criarpost = form_criarpost, form_criar_subpost = form_criarSubPost)
 
-
-
-@app.route('/new_event/', methods=['POST'])
-def new_event():
-    pass
-
 ### End of Home route
 
 
@@ -55,8 +49,6 @@ def login():
 
 @app.route('/autenticate', methods=['POST',])
 def autenticate():
-
-    
 
     autenticated, user_auth = validateLogin(request.form['user_name'], request.form['password'])
     
