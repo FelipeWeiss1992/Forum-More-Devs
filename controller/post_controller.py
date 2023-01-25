@@ -23,8 +23,33 @@ def listPost(userID):
 def editPost(userID,id):
     pass
 
-def deletePost(userID, id):
-    pass
+### Delete a post based on its ID and Sub Posts if also has it
+def deletePost(postID, userID=None):
+    with Session(engine) as session:
+        statement = select(Post).where(Post.id == postID).options(selectinload(Post.sub_posts))
+        post_rep = session.exec(statement).first()
+        if post_rep != None:
+            session.delete(post_rep)
+            session.commit()
+            if post_rep.sub_posts:
+                for subposts in post_rep.sub_posts:
+                    print(subposts)
+                    deleteSubPost(1, postID, subposts.id)
+            return True
+        else:
+            return False
+        
+### Delete sub posts based on its ID
+def deleteSubPost(subPostID, userID=None, postID=None):
+    with Session(engine) as session:
+        statement = select(SubPost).where(SubPost.id == subPostID)
+        post_rep = session.exec(statement).first()
+        if post_rep != None:
+            session.delete(post_rep)
+            session.commit()
+            return True
+        else:
+            return False
 
 def createSubPost(userID, postID,subpost_description):
     with Session(engine) as session:

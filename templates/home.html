@@ -1,9 +1,10 @@
 {% extends "template.html" %}
 
+
+
 {% block content %}
 <body>
         
-
     <h1 class="flex-justify-center main_title">Forum more devs</h1>
     <br><br>
 
@@ -42,8 +43,8 @@
                             
                             <p>{{ post.description }}</p>
                             <div class="post_control">
-                                <a href="/users/edit/{{ user.id }}" title="Edit"><i class="fa-solid fa-pencil"></i></a>
-                                <a href="#" user-delete data-id="{{ user.id }}" title="Delete"><i class="fa-solid fa-trash"></i></a>
+                                <a href="#" title="Edit"><i class="fa-solid fa-pencil"></i></a>
+                                <a href="#" onclick="deletePost({{ post.id }});return false;" user-delete data-id="{{ user.id }}" title="Delete"><i class="fa-solid fa-trash"></i></a>
                             </div>
                         </div>
                         </div>
@@ -67,8 +68,8 @@
                                             <p>{{ sub_post.description }}</p>
                                             
                                             <div class="subpost_control">
-                                                <a href="/users/edit/{{ user.id }}" title="Edit"><i class="fa-solid fa-pencil"></i></a>
-                                                <a href="#" user-delete data-id="{{ user.id }}" title="Delete"><i class="fa-solid fa-trash"></i></a>
+                                                <a href="#" title="Edit"><i class="fa-solid fa-pencil"></i></a>
+                                                <a href="#" onclick="deleteSubPost({{ sub_post.id }});return false;" user-delete data-id="{{ user.id }}" title="Delete"><i class="fa-solid fa-trash"></i></a>
                                             </div>
                                         </div>
                                         {% endif %}

@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, session, flash, url_for
 from main import app
 from controller.users_controller import listUsers, createUser, updateUser, deleteUser
-from controller.post_controller import createPost, createSubPost
+from controller.post_controller import createPost, createSubPost, deletePost, deleteSubPost
 from models.forms import FormCriarPost
 #from views.views import home
 
@@ -69,3 +69,28 @@ def new_subpost(id):
             return redirect(url_for('login'))
     else:
             return redirect('/login')
+        
+        
+        
+        
+#### Delete Posts and subposts ####
+
+@app.delete('/posts/<id>/')
+def post_delete(id):
+    ### Delete Post by ID
+    if (session['user_logged_in'] == True):
+        deletePost(id)
+        
+        return redirect(url_for("home"))
+    else:
+        redirect(url_for("login"))
+
+@app.delete('/subposts/<id>/')
+def subpost_delete(id):
+        ### Delete SubPost by ID
+    if (session['user_logged_in'] == True):
+        deleteSubPost(id)
+        
+        return redirect(url_for("home"))
+    else:
+        redirect(url_for("login"))
