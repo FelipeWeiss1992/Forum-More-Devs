@@ -24,14 +24,12 @@ def home():
         user_info = [session['ID'],session['user']]
         
         allUsers = listUsers()
-        print(allUsers)
         
         return render_template('home.html',user_info=user_info, all_users = allUsers, form_criarpost = form_criarpost, form_criar_subpost = form_criarSubPost)
     else:
         allUsers = listUsers()
         #user_info = [session['ID'],session['user']]
         
-        print(allUsers)
         return render_template('home.html', all_users = allUsers, form_criarpost = form_criarpost, form_criar_subpost = form_criarSubPost)
 
 ### End of Home route

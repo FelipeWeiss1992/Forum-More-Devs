@@ -42,6 +42,3 @@ class FormEditarPerfil(FlaskForm):
     javascript = BooleanField('JavaScript')
     sql = BooleanField('SQL')
     botao_submit_editarperfil = SubmitField('Confirmar Edição')
-
-   
-        

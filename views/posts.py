@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, session, flash, url_for
 from main import app
 from controller.users_controller import listUsers, createUser, updateUser, deleteUser
-from controller.post_controller import createPost, createSubPost, deletePost, deleteSubPost
+from controller.post_controller import createPost, createSubPost, deletePost, deleteSubPost, listPost, editPost
 from models.forms import FormCriarPost
 #from views.views import home
 
@@ -23,6 +23,43 @@ def new_post_form():
     else:
             return redirect('/login')
 
+
+@app.route('/posts/edit_post/<id>', methods=['GET', 'POST'])
+def edit_post_form(id):
+
+    if request.method == 'GET':
+        if session:
+            if (session['user_logged_in'] == True):
+
+                user_info = [session['ID'],session['user']]
+                
+                postToEdit = listPost(id)
+                
+                print(postToEdit.description)
+                
+                return render_template('form_edit_post.html', user_info=user_info, post_to_edit=postToEdit)
+            else:
+                return redirect(url_for('login'))
+        else:
+                return redirect('/login')
+
+    elif request.method == 'POST':
+        if session:
+            if (session['user_logged_in'] == True):
+
+                user_info = [session['ID'],session['user']]
+                
+                editPost(id, request.form['title'], request.form['description'])
+                
+                flash("Post alterado com sucesso.")
+                
+                return redirect(url_for("home"))
+                
+            else:
+                return redirect(url_for('login'))
+        else:
+                return redirect(url_for('login'))
+    
 
 
 @app.route('/posts/', methods=['GET', 'POST'])

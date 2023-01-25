@@ -42,10 +42,13 @@
                             <p class="title">{{ post.title }}</p>
                             
                             <p>{{ post.description }}</p>
+                            
+                            {% if user_info[0] == user.id %}
                             <div class="post_control">
-                                <a href="#" title="Edit"><i class="fa-solid fa-pencil"></i></a>
+                                <a href="/posts/edit_post/{{post.id}}" title="Edit"><i class="fa-solid fa-pencil"></i></a>
                                 <a href="#" onclick="deletePost({{ post.id }});return false;" user-delete data-id="{{ user.id }}" title="Delete"><i class="fa-solid fa-trash"></i></a>
                             </div>
+                            {% endif %}
                         </div>
                         </div>
 
@@ -67,10 +70,12 @@
                                             
                                             <p>{{ sub_post.description }}</p>
                                             
+                                            {% if user_info[0] == user_rep.id %}
                                             <div class="subpost_control">
                                                 <a href="#" title="Edit"><i class="fa-solid fa-pencil"></i></a>
                                                 <a href="#" onclick="deleteSubPost({{ sub_post.id }});return false;" user-delete data-id="{{ user.id }}" title="Delete"><i class="fa-solid fa-trash"></i></a>
                                             </div>
+                                            {% endif %}
                                         </div>
                                         {% endif %}
                                     </div>

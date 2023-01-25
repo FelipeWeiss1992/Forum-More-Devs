@@ -210,6 +210,10 @@ a, a:hover {
     right: 1rem;
 }
 
+.post_control a, .subpost_control a {
+    color: var(--dark-gray-60);
+}
+
 
 .listapessoas ul {
     background-color: #e7f1ff;

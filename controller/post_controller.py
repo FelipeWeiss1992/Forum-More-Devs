@@ -17,11 +17,28 @@ def createPost(userID, post_title, post_description):
         print(new_post)
 
 
-def listPost(userID):
-    pass
+def listPost(postID, userID=None):
+    with Session(engine) as session:
+        statement = select(Post).where(Post.id == postID)
+        post_rep = session.exec(statement).first()
+        if post_rep != None:
+            return post_rep
+        else:
+            return False
 
-def editPost(userID,id):
-    pass
+def editPost(postID, postTitle, postDescription, userID=None):
+    with Session(engine) as session:
+        statement = select(Post).where(Post.id == postID)
+        post_rep = session.exec(statement).first()
+        if post_rep != None:
+            post_rep.title = postTitle
+            post_rep.description = postDescription
+            
+            session.add(post_rep)
+            session.commit()
+            session.refresh(post_rep)
+        else:
+            return False
 
 ### Delete a post based on its ID and Sub Posts if also has it
 def deletePost(postID, userID=None):
