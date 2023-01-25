@@ -36,7 +36,7 @@
                         <div class="posts_profile">
                             <i class="fa-solid fa-user"></i>
                             <p>{{ user.user_name }}</p>
-                            <p>{{ post.date_created }}</p>
+                            <p>{{ post.date_created.strftime('%d/%m/%Y')}}</p>
                         </div>
                         <div class="post_body">
                             <p class="title">{{ post.title }}</p>

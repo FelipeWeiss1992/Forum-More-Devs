@@ -27,7 +27,7 @@
         
             <li>
                 <h5>{{ post.title }}</h5>
-                <p>Date: {{ post.date_created }} </p>
+                <p>Date: {{ post.date_created.strftime('%d/%m/%Y') }} </p>
                 <p> {{ post.description }} </p>
             </li>
             <li>

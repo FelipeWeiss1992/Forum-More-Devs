@@ -22,7 +22,7 @@
                 </div>
                 <div class="post_title">
                     <p>{{ post.title }}</p>
-                    <p>{{ post.date_created }}</p>
+                    <p>{{ post.date_created.strftime('%d/%m/%Y') }}</p>
                     <div class="post_replies">
 
                         {% for user_rep in all_users %}
