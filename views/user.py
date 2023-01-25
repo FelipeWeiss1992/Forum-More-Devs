@@ -13,14 +13,20 @@ from models.forms import FormCriarConta
 def user():
     if request.method == 'GET':
         ### List all users 
-        if (session['user_logged_in'] == True):
-            user_info = [session['ID'],session['user']]
-            users_list = listUsers()
-            print(users_list)
-            return render_template('list_users.html',users_list=users_list, user_info=user_info)
+        if session:
+            if (session['user_logged_in'] == True):
+                user_info = [session['ID'],session['user']]
+                users_list = listUsers()
+                print(users_list)
+                return render_template('list_users.html',users_list=users_list, user_info=user_info)
+            else:
+                return redirect(url_for("login"))
+        else:
+            return redirect(url_for("login"))
+            
     elif request.method == 'POST':
         ### Create a new user on the database:
-        user_info = [session['ID'],session['user']]
+        #user_info = [session['ID'],session['user']]
         
         if (request.form['user_name'] != "") and (request.form['name'] != "") and (request.form['password1'] != ""):
         
@@ -29,7 +35,7 @@ def user():
             
             flash(f"User {request.form['user_name']} created.")
             
-            return redirect(url_for("home"), user_info=user_info)
+            return redirect(url_for("home"))
         else:
             flash("ERROR! Invalid parameters")
             

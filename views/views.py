@@ -19,6 +19,7 @@ def home():
     form_criarpost = FormCriarPost()
     form_criarSubPost = FormCriarSubPost()
     
+    user_info= []
 
     if session['user_logged_in'] == True:
         user_info = [session['ID'],session['user']]
@@ -30,7 +31,7 @@ def home():
         allUsers = listUsers()
         #user_info = [session['ID'],session['user']]
         
-        return render_template('home.html', all_users = allUsers, form_criarpost = form_criarpost, form_criar_subpost = form_criarSubPost)
+        return render_template('home.html', user_info=user_info, all_users = allUsers, form_criarpost = form_criarpost, form_criar_subpost = form_criarSubPost)
 
 ### End of Home route
 

@@ -1,10 +1,14 @@
 from sqlmodel import SQLModel, create_engine
 
 
-sqlite_file_name = "database.db"
-sqlite_url = f"sqlite:///{sqlite_file_name}"
+# sqlite_file_name = "database.db"
+# sqlite_url = f"sqlite:///{sqlite_file_name}"
 
-engine = create_engine(sqlite_url)
+# engine = create_engine(sqlite_url)
+
+
+engine = create_engine("postgresql://forum:123456@localhost:5433/forum")
+
 
 
 # using the engine we create the tables we need if they aren't already done
